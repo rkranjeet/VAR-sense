@@ -74,3 +74,5 @@ C:\Users\iOSDev747\VAR-sense\VAR-sense\Temp\bin\Debug\UnityEditor.VR.xml
 C:\Users\iOSDev747\VAR-sense\VAR-sense\Temp\bin\Debug\UnityEditor.iOS.Extensions.Xcode.xml
 C:\Users\iOSDev747\VAR-sense\VAR-sense\obj\Debug\Assembly-CSharp.dll
 C:\Users\iOSDev747\VAR-sense\VAR-sense\obj\Debug\Assembly-CSharp.pdb
+C:\Users\iOSDev747\Documents\VAR-sense\VAR-sense\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\iOSDev747\Documents\VAR-sense\VAR-sense\obj\Debug\Assembly-CSharp.dll

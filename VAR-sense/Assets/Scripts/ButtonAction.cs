@@ -9,4 +9,10 @@ public class ButtonAction : MonoBehaviour {
 	{
 		SceneManager.LoadScene(s);
 	}
+	public void quit(bool b)
+	{
+		if (b) {
+			Application.Quit ();
+		}
+	}
 }
