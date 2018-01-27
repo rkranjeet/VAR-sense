@@ -6,41 +6,62 @@ using UnityEngine.Rendering;
 public class doorBehaviour : MonoBehaviour {
 
 	public Material[] materials;
+	public Transform device;
+
+	bool wasInFront;
+	bool inOtherWorld;
+	bool isColliding;
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log ("Game started");
-		foreach (var material_i in materials) {
-			material_i.SetInt ("_World", (int)CompareFunction.Equal);
-		}
+		SetMaterial (false);
 	}
 
-	void OnTriggerStay(Collider c){
-		if(c.name != "Main Camera"){
+	void SetMaterial(bool fullRender){
+		var world = fullRender ? CompareFunction.NotEqual : CompareFunction.Equal;
+		foreach (var material_i in materials) {
+			material_i.SetInt ("_World", (int)world);
+		}
+	}
+	bool GetIsInFront(){
+		Vector3 worldPos = device.position + device.forward * Camera.main.nearClipPlane;
+		Vector3 pos = transform.InverseTransformPoint (worldPos);
+		return pos.z >= 0 ? true : false;
+	}
+
+	void OnTriggerEnter(Collider c){
+		if(c.transform != device){
 			return;
 		}
-		if (transform.position.z > c.transform.position.z) {
-			foreach (var material_i in materials) {
-				material_i.SetInt ("_World", (int)CompareFunction.Equal);
-				Debug.Log ("World 1");
-			}
-		} else {
-			foreach (var material_i in materials) {
-				material_i.SetInt ("_World", (int)CompareFunction.NotEqual);
-				Debug.Log ("World 2");
-			}
+		wasInFront = GetIsInFront ();
+		isColliding = true;
+	}
+
+	void OnTriggerExit(Collider c){
+		if(c.transform != device){
+			return;
 		}
+		isColliding = false;
+	}
+
+	void WhileCameraColliding()
+	{
+		if (!isColliding)
+			return;
+		bool isInFront = GetIsInFront ();
+		if((isInFront && !wasInFront) || (wasInFront && !isInFront)){
+			inOtherWorld = !inOtherWorld;
+			SetMaterial (inOtherWorld);
+		}
+		wasInFront = isInFront;
 	}
 
 	void Destroy(){
-		Debug.Log ("Game ended");
-		foreach (var material_i in materials) {
-			material_i.SetInt ("_World", (int)CompareFunction.NotEqual);
-		}
+		SetMaterial (true);
 	}
 
 	// Update is called once per frame
 	void Update () {
-		
+		WhileCameraColliding ();			
 	}
 }
