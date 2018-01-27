@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
 	[Range(0.00001f,3)]
-	float speed = 0.1f;
+	float speed = 0.5f;
 
 	void Update () {
 		Vector3 velocity = new Vector3 (Input.GetAxis ("Horizontal"), 0, Input.GetAxis ("Vertical")) * speed;
