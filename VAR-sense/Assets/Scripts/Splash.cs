@@ -16,6 +16,6 @@ public class Splash : MonoBehaviour {
 		yield return new WaitForSeconds (2.0f);
 		splash.CrossFadeAlpha (0.0f,1.5f,false);
 		yield return new WaitForSeconds (2.0f);
-		EditorSceneManager.LoadScene (scene);
+		EditorSceneManager.LoadScene ("menu");
 	}
 }
